@@ -1,0 +1,4 @@
+lxml
+debugpy
+python-gitlab
+Jinja2

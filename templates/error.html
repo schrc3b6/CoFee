@@ -1,0 +1,94 @@
+                    <div class="accordion-body" style="position:relative">
+                        <!-- change button for a  -->
+                  <a href="{{ report.project_url }}/issues/new?issue[title]=Hilfe%20{{ error.title|urlencode }}%20Pipeline%20{{ report.pipeline_iid|urlencode }}&issue[description]=%40Tutoren%0A%0AIch%20br%C3%A4uchte%20Hilfe%20mit%20..." type="button" class="btn btn-outline-warning"
+                        style="position: absolute; right:0; top:0; margin-top: 1.25rem; margin-right: 1.25rem;">Help</a>
+                          <!-- messages starts here -->
+                          {% for msg in error.msgs %}
+                      <div style="margin-right: 4rem;">
+                          <strong>{{ msg.msg }}</strong>
+                      </div>
+                          {% for location in msg.locations %}
+                          {% if loop.first %}
+                          <p>File: {{ location.basename }} line {{ location.linenumber_editor }}:</p>
+                      <div id="errorlocation{{ error.nr }}-{{ msg.nr }}-{{ location.nr }}" class="errorlocation">
+                        <div class="location">
+                          <div class="filename">{{ location.filename }} <a href="{{ report.project_url }}/-/blob/{{ report.commit_sha }}/{{location.filename}}#L{{location.linenumber_editor}}"
+                              class="text-primary text-decoration-none">gitlab</a></div>
+                          <pre><code id="l{{ location.linenumber_editor }}-{{ error.kind.name }}" data-ln-start-from="{{ location.linenumber_editor - 1 }}" >{{ location.srccode }}
+                          </code></pre>
+                        </div>
+                        {% else %}
+                        {% if loop.index == 2 %}
+                        <div id="callstackFrames">
+                          <div class="collapse" id="collapse{{ error.nr }}-{{ msg.nr }}">
+                        {% endif %}
+                            <div class="frame">
+                              <div class="text-center">
+                                <span>was called by <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                    height="16" fill="currentColor" class="align-baseline bi bi-arrow-up"
+                                    viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                      d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                                  </svg>
+                                </span>
+                              </div>
+                              <div class="location">
+                                  <div class="filename">{{ location.filename }} <a href="{{ report.project_url }}/-/blob/{{ report.commit_sha }}/{{location.filename}}#L{{location.linenumber_editor}}"
+                                    class="text-primary text-decoration-none">gitlab</a></div>
+                                  <pre><code id="l{{ location.linenumber_editor }}-{{ error.kind.name }}" data-ln-start-from="{{ location.linenumber_editor - 1 }}" > {{ location.srccode }} 
+                                  </code></pre>
+                              </div>
+                            </div>
+                              {% if loop.last and loop.index >= 2 %} 
+                          </div>
+                          <div id="callstackOneBtn" class="text-center">
+                            <a class="callstackBtn text-decoration-none text-muted collapsed" data-bs-toggle="collapse"
+                                href="#collapse{{ error.nr }}-{{ msg.nr }}" role="button" aria-expanded="false"
+                                aria-controls="collapse{{ error.nr }}-{{ msg.nr }}">
+                              show stack trace
+                            </a>
+                          </div>
+                        </div>
+
+                          {% endif %}
+                          {% endif %}
+                          {% if loop.last %}
+                      </div>
+                        {% endif %}
+                          {% endfor %}
+                          {% endfor %}
+                        {% if error.hint.msg %}
+                      <div class="mt-2"><p><strong>Hint: </strong>{{ error.hint.msg }}</p></div>
+                        {% endif %}
+                      <div class="justify-content-md-end d-grid gap-2 d-md-flex">
+                      {% if error.artefacts %}
+                        {% for art in error.artefacts %}
+                        <a href="{{ art }}" type="button" class="btn btn-light btn-sm">Details</a>
+                        {% endfor %}
+                      {% endif %}
+                      {% if error.raw %}
+                        <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#raw-{{ error.nr }}">
+                          Raw
+      </button>
+      <!-- Modal -->
+                        <div class="modal fade" id="raw-{{ error.nr }}" tabindex="-1" aria-labelledby="raw-{{ error.nr }}Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+                                <h5 class="modal-title" id="raw-{{ error.nr }}Label">Raw Error</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <pre><code>
+{{ error.raw }}
+              </code></pre>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+                      {% endif %}
+                      </div>
+                    </div>

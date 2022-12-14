@@ -1,0 +1,10 @@
+srcdir='/'
+branch=''
+pipeline_iid=0
+commit_sha=''
+project_dir=''
+pages_url=''
+project_url=''
+project_id=0
+server_url=''
+job_id=0

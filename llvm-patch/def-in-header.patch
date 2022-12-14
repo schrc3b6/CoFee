@@ -1,0 +1,25 @@
+From a1fb6b1c06c53db15737f4635223043a831de197 Mon Sep 17 00:00:00 2001
+From: schrc3b6 <schrc3b6@schroetter.info>
+Date: Sat, 23 Oct 2021 16:00:07 +0200
+Subject: [PATCH] easy fix for c support
+
+---
+ clang-tools-extra/clang-tidy/misc/DefinitionsInHeadersCheck.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/clang-tools-extra/clang-tidy/misc/DefinitionsInHeadersCheck.h b/clang-tools-extra/clang-tidy/misc/DefinitionsInHeadersCheck.h
+index 239b7d1c1..fafd8e09b 100644
+--- a/clang-tools-extra/clang-tidy/misc/DefinitionsInHeadersCheck.h
++++ b/clang-tools-extra/clang-tidy/misc/DefinitionsInHeadersCheck.h
+@@ -35,7 +35,7 @@ class DefinitionsInHeadersCheck : public ClangTidyCheck {
+ public:
+   DefinitionsInHeadersCheck(StringRef Name, ClangTidyContext *Context);
+   bool isLanguageVersionSupported(const LangOptions &LangOpts) const override {
+-    return LangOpts.CPlusPlus11;
++    return true;
+   }
+   void storeOptions(ClangTidyOptions::OptionMap &Opts) override;
+   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
+-- 
+2.33.0
+

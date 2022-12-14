@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.4.3)
+
+project(GBRTidyModule C CXX)
+
+find_package(LLVM REQUIRED CONFIG)
+
+set(CMAKE_MODULE_PATH ${LLVM_CMAKE_DIR})
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
+message(STATUS "Using LLVMConfig.cmake in: ${LLVM_CMAKE_DIR}")
+include(AddLLVM)
+
+find_package(Clang REQUIRED CONFIG)
+
+include_directories(${LLVM_INCLUDE_DIRS} ${CLANG_INCLUDE_DIRS})
+
+add_definitions(${LLVM_DEFINITIONS})
+
+message(STATUS "LLVM_DEFINITIONS:   ${LLVM_DEFINITIONS}")
+message(STATUS "LLVM_INCLUDE_DIRS:  ${LLVM_INCLUDE_DIRS}")
+message(STATUS "CLANG_INCLUDE_DIRS: ${CLANG_INCLUDE_DIRS}")
+
+execute_process(COMMAND /usr/bin/bash -c "clang -Wp,-v -x c - -fsyntax-only < /dev/null 2>&1 | grep /clang/" OUTPUT_VARIABLE CLANG_INTERNAL_INCLUDE_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
+string(REPLACE " " "" CLANG_INTERNAL_INCLUDE_DIR "${CLANG_INTERNAL_INCLUDE_DIR}")
+message(STATUS "CLANG_INTERNAL_INCLUDE_DIR: ${CLANG_INTERNAL_INCLUDE_DIR}")
+
+IF(DEFINED CLANG_TIDY_SOURCE_DIR)
+  message(STATUS "CLANG_TIDY_SOURCE_DIR: ${CLANG_TIDY_SOURCE_DIR}")
+ELSE()
+  message(FATAL_ERROR "CLANG_TIDY_SOURCE_DIR not specified! Specify via -DCLANG_TIDY_SOURCE_DIR=...")
+ENDIF()
+
+llvm_add_library(GBRTidyModule 
+  MODULE GBRModule.cpp NetdbCheck.cpp SignalCheck.cpp WRSRCheck.cpp
+  PLUGIN_TOOL clang-tidy)
+      
+target_include_directories(GBRTidyModule PUBLIC BEFORE "${CLANG_TIDY_SOURCE_DIR}")

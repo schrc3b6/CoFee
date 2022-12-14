@@ -1,0 +1,21 @@
+{% include 'header.html' %}
+  <main>
+    <div class="row g-5">
+      <div class="col-md-12">
+        {% for report in reports %}
+        <div class="card mb-2">
+          <a href="{{ report.pipeline_iid }}.html" class="card-body text-decoration-none link-dark">
+          <div class="card-title h5">Test Results <span class="text-muted h6"> Pipeline: {{ report.pipeline_iid }} Branch: {{ report.branch }} Commit: {{ report.commit_sha }}</span></div>
+            <ul class="card-text list-inline">
+              <li class="list-inline-item">Results:</li>
+              {% for tool, results in report.results_by_tool.items() %}
+            <li class="list-inline-item">{{ tool|tool_to_name }}: {% for res, number in results.items() %} {{ res|to_icon|safe }} {{ number }} {% endfor %}</li>
+              {% endfor %}
+            </ul>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </main>
+{% include 'footer.html' %}

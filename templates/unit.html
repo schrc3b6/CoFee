@@ -1,0 +1,44 @@
+                    <div class="accordion-body" style="position:relative">
+                        <!-- change button for a  -->
+                  <a href="{{ report.project_url }}/issues/new?issue[title]=Hilfe%20{{ error.title|urlencode }}%20Pipeline%20{{ report.pipeline_iid|urlencode }}&issue[description]=%40Tutoren%0A%0AIch%20br%C3%A4uchte%20Hilfe%20mit%20..." type="button" class="btn btn-outline-warning"
+                        style="position: absolute; right:0; top:0; margin-top: 1.25rem; margin-right: 1.25rem;">Help</a>
+                          {% for msg in error.msgs %}
+                      <div style="margin-right: 4rem;">
+                          <!-- messages starts here -->
+                        {{ error.hint.msg }}<br>
+                        {% if error.hint.unit_test_src is not none %}
+                        {% if msg.locations|length < 1 %}
+                        <p>The following code was executed in the test: </p>
+                      </div>
+                          <div id="errorlocation{{ error.nr }}-{{ msg.nr }}-woloc" class="errorlocation">
+                            <div class="location">
+                              <div class="filename">UnitTest</div>
+                              <pre><code data-ln-start-from="{{ error.hint.start_line - 1 }}" >{{ error.hint.unit_test_src }}
+                              </code></pre>
+                            </div>
+                          </div>
+                          <p>The test returned the following error:<br><strong>{{ msg.msg }}</strong></p>
+                        {% endif %}
+
+                        {% for location in msg.locations %}
+                        {% if loop.first %}
+                          <p>The following code was executed in the test: </p>
+                      </div>
+                      <div id="errorlocation{{ error.nr }}-{{ msg.nr }}-{{ location.nr }}" class="errorlocation">
+                        <div class="location">
+                          <div class="filename">UnitTest</div>
+                          <pre><code id="l{{ location.linenumber_editor }}-{{ error.kind.name }}" data-ln-start-from="{{ error.hint.start_line - 1 }}" >{{ error.hint.unit_test_src }}
+                          </code></pre>
+                        </div>
+                      </div>
+                      <p>The test returned the following error in line {{ location.linenumber_editor }}:<br><strong>{{ msg.msg }}</strong></p>
+                      {% endif %}
+                      {% endfor %}
+                      {% else %}
+                      </div>
+                      {% if error.hint.action.value == 5 %}
+                      <br><p>The test returned the following error:<br><strong>{{ msg.msg }}</strong></p>
+                      {% endif %}
+                      {% endif %}
+                      {% endfor %}
+                    </div>

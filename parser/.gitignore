@@ -1,0 +1,8 @@
+/results/
+/examples/
+/results.bak/
+/output.xml
+/.venv
+*.html
+*.css
+*.js

@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/mschroetter/project/cofee_up-tidy-module/build",
+  "command": "/usr/bin/c++  -I/home/mschroetter/project/cofee_up-tidy-module/BEFORE -I/home/mschroetter/project/llvm-project/clang-tools-extra/clang-tidy -fPIC   -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -fno-exceptions -o CMakeFiles/GBRTidyModule.dir/GBRModule.cpp.o -c /home/mschroetter/project/cofee_up-tidy-module/GBRModule.cpp",
+  "file": "/home/mschroetter/project/cofee_up-tidy-module/GBRModule.cpp"
+},
+{
+  "directory": "/home/mschroetter/project/cofee_up-tidy-module/build",
+  "command": "/usr/bin/c++  -I/home/mschroetter/project/cofee_up-tidy-module/BEFORE -I/home/mschroetter/project/llvm-project/clang-tools-extra/clang-tidy -fPIC   -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -fno-exceptions -o CMakeFiles/GBRTidyModule.dir/NetdbCheck.cpp.o -c /home/mschroetter/project/cofee_up-tidy-module/NetdbCheck.cpp",
+  "file": "/home/mschroetter/project/cofee_up-tidy-module/NetdbCheck.cpp"
+},
+{
+  "directory": "/home/mschroetter/project/cofee_up-tidy-module/build",
+  "command": "/usr/bin/c++  -I/home/mschroetter/project/cofee_up-tidy-module/BEFORE -I/home/mschroetter/project/llvm-project/clang-tools-extra/clang-tidy -fPIC   -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -fno-exceptions -o CMakeFiles/GBRTidyModule.dir/SignalCheck.cpp.o -c /home/mschroetter/project/cofee_up-tidy-module/SignalCheck.cpp",
+  "file": "/home/mschroetter/project/cofee_up-tidy-module/SignalCheck.cpp"
+},
+{
+  "directory": "/home/mschroetter/project/cofee_up-tidy-module/build",
+  "command": "/usr/bin/c++  -I/home/mschroetter/project/cofee_up-tidy-module/BEFORE -I/home/mschroetter/project/llvm-project/clang-tools-extra/clang-tidy -fPIC   -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -fno-exceptions -o CMakeFiles/GBRTidyModule.dir/WRSRCheck.cpp.o -c /home/mschroetter/project/cofee_up-tidy-module/WRSRCheck.cpp",
+  "file": "/home/mschroetter/project/cofee_up-tidy-module/WRSRCheck.cpp"
+}
+]
